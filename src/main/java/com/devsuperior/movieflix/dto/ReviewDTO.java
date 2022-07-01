@@ -5,6 +5,7 @@ import com.devsuperior.movieflix.entities.User;
 
 public class ReviewDTO {
 
+    private long id;
     private Long movieId;
     private String text;
     private UserDTO user;
@@ -12,16 +13,26 @@ public class ReviewDTO {
     public ReviewDTO() {
     }
 
-    public ReviewDTO(Long movieId, String text, User user) {
+    public ReviewDTO(Long id, Long movieId, String text, User user) {
+        this.id = id;
         this.movieId = movieId;
         this.text = text;
         this.user = new UserDTO(user);
     }
 
     public ReviewDTO(Review entity) {
-        this.movieId = entity.getMovie().getId();
-        this.text = entity.getText();
-        this.user = new UserDTO(entity.getUser());
+        id = entity.getId();
+        movieId = entity.getMovie().getId();
+        text = entity.getText();
+        user = new UserDTO(entity.getUser());
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Long getMovieId() {
