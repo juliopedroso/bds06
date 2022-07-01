@@ -32,7 +32,6 @@ public class MovieService {
     @Transactional(readOnly = true)
     public Page<MovieDTO> findAllPaged(Long genreId, Pageable pageable) {
         Genre genre = (genreId == 0 ? null : genreRepository.getOne(genreId));
-
         Page<Movie> movies = repository.find(genre, pageable);
 
         return movies.map(MovieDTO::new);
@@ -49,7 +48,6 @@ public class MovieService {
     @Transactional(readOnly = true)
     public List<ReviewDTO> findReviewsById(Long id) {
         Movie movie = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-
         return movie.getReviews().stream().map(ReviewDTO::new).toList();
     }
 }
