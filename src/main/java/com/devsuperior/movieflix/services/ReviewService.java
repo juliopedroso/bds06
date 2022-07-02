@@ -1,11 +1,10 @@
 package com.devsuperior.movieflix.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devsuperior.movieflix.dto.ReviewDTO;
+import com.devsuperior.movieflix.dto.ReviewInsertDTO;
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.entities.Review;
 import com.devsuperior.movieflix.entities.User;
@@ -23,10 +22,10 @@ public class ReviewService {
     @Autowired
     private AuthService authService;
 
-    public ReviewDTO save(ReviewDTO dto) {
+    public ReviewDTO save(ReviewInsertDTO dto) {
 
         User user = authService.authenticated();
-        
+
         Movie movie = movieRepository.findById(dto.getMovieId()).orElseThrow(() -> new ResourceNotFoundException("Movie not found."));
         
         Review review = new Review();

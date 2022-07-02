@@ -2,6 +2,8 @@ package com.devsuperior.movieflix.controllers;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.movieflix.dto.ReviewDTO;
+import com.devsuperior.movieflix.dto.ReviewInsertDTO;
 import com.devsuperior.movieflix.services.ReviewService;
 
 @RequestMapping("reviews")
@@ -21,13 +24,13 @@ public class ReviewController {
     private ReviewService service;
 
     @PostMapping()
-    public ResponseEntity<ReviewDTO> insert(@RequestBody ReviewDTO dto) {
-        dto = service.save(dto);
+    public ResponseEntity<ReviewDTO> insert(@Valid @RequestBody ReviewInsertDTO dto) {
+        ReviewDTO reviewDTO = service.save(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(dto.getId())
                 .toUri();
-        return ResponseEntity.created(uri).body(dto);
+        return ResponseEntity.created(uri).body(reviewDTO);
     }
 
 }
