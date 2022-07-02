@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.devsuperior.movieflix.dto.MovieGenreDTO;
 import com.devsuperior.movieflix.dto.MovieDTO;
 import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.services.MovieService;
@@ -37,9 +38,9 @@ public class MovieController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<MovieDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<MovieGenreDTO> findById(@PathVariable Long id) {
 
-        MovieDTO movie = service.findById(id);
+        MovieGenreDTO movie = service.findById(id);
 
         return ResponseEntity.ok(movie);
     }
@@ -47,11 +48,8 @@ public class MovieController {
     @GetMapping(value = "/{id}/reviews")
     public ResponseEntity<List<ReviewDTO>> findReviewsById(@PathVariable Long id) {
 
+        List<ReviewDTO> reviews = service.findReviewsById(id);
 
-        MovieDTO movie = service.findById(id);
-
-        //List<ReviewDTO> reviews = service.findReviewsById(id);
-
-        return ResponseEntity.ok(movie.getReviews());
+        return ResponseEntity.ok(reviews);
     }
 }

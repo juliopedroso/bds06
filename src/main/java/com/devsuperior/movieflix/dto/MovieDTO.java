@@ -1,11 +1,6 @@
 package com.devsuperior.movieflix.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.devsuperior.movieflix.entities.Movie;
-import com.devsuperior.movieflix.entities.Review;
 
 public class MovieDTO {
 
@@ -14,22 +9,16 @@ public class MovieDTO {
     private String subTitle;
     private Integer year;
     private String imgUrl;
-    private String synopsis;
-    private GenreDTO genre;
-    private List<ReviewDTO> reviews= new ArrayList<>();
 
     public MovieDTO() {
     }
 
-    public MovieDTO(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis, GenreDTO genre,List<ReviewDTO> reviews) {
+    public MovieDTO(Long id, String title, String subTitle, Integer year, String imgUrl) {
         this.id = id;
         this.title = title;
         this.subTitle = subTitle;
         this.year = year;
         this.imgUrl = imgUrl;
-        this.synopsis = synopsis;
-        this.genre = genre;
-        this.reviews = reviews;
     }
 
     public MovieDTO(Movie entity) {
@@ -38,9 +27,7 @@ public class MovieDTO {
         this.subTitle = entity.getSubTitle();
         this.year = entity.getYear();
         this.imgUrl = entity.getImgUrl();
-        this.synopsis = entity.getSynopsis();
-        this.genre = new GenreDTO(entity.getGenre());
-        this.reviews = entity.getReviews().stream().map(ReviewDTO::new).collect(Collectors.toList());
+      
     }
 
     public Long getId() {
@@ -83,26 +70,5 @@ public class MovieDTO {
         this.imgUrl = imgUrl;
     }
 
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
-    }
-
-    public GenreDTO getGenre() {
-        return genre;
-    }
-
-    public void setGenre(GenreDTO genre) {
-        this.genre = genre;
-    }
-
-    public List<ReviewDTO> getReviews() {
-        return reviews;
-    }
-
-
-
+   
 }
